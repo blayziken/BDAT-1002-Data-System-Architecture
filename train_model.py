@@ -19,8 +19,8 @@ numeric_features = ["age", "num_procedures", "days_in_hospital", "comorbidity_sc
 
 # Preprocessing
 preprocessor = ColumnTransformer(transformers=[
-    ("cat", OneHotEncoder(handle_unknown="ignore"), categorical_features),
-    ("num", StandardScaler(), numeric_features)
+    ("cat", OneHotEncoder(handle_unknown="ignore"), categorical_features), # OneHotEncoder for categorical columns 
+    ("num", StandardScaler(), numeric_features) # StandardScaler for numeric columns
 ])
 
 # Full pipeline
@@ -29,10 +29,9 @@ pipeline = Pipeline(steps=[
     ("classifier", XGBClassifier(use_label_encoder=False, eval_metric="logloss"))
 ])
 
-# Train/test split
+# Split the dataset into training and validation sets.
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train model
 pipeline.fit(X_train, y_train)
 
 # Save pipeline

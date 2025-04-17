@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+
 import joblib
 import pandas as pd
 
 app = FastAPI()
 model = joblib.load("readmission_model.pkl")
 
-# Define input schema
+# Define input schema/structure
 class PatientData(BaseModel):
     age: int
     gender: str
